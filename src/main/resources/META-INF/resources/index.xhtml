@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+<h:head>
+    <title>Skillversum Horse Database</title>
+    <h:outputStylesheet library="css" name="stylesheet.css"/>
+
+</h:head>
+<h:body>
+    <h1>Car Database</h1>
+      <div align="center">
+          <h:form>
+        <h:messages errorClass="error"/>
+        <h:panelGrid border="1">
+            <h:outputText value="Brand"/>
+            <h:inputText id="brand" value="#{horseManagedBean.selectedHorse.brand}" required="true"
+                         requiredMessage="Please input a model!" validatorMessage="Input a 3 or 4 letter Model name!">
+              <f:validateLength minimum="3" maximum="4" />
+            </h:inputText>
+
+            <h:outputText value="Model"/>
+            <h:selectOneMenu value="#{horseManagedBean.selectedHorse.model}" styleClass="select-one-menu">
+                <f:selectItem itemValue="Diesel"/>
+                <f:selectItem itemValue="Petrol"/>
+                <f:selectItem itemValue="Electric"/>
+            </h:selectOneMenu>
+
+            <!--Itt megismerkedhetünk egy újféle beviteli mezővel, a selectOneMenu-vel, ez nem valami találó név,
+            habár valóban 1 elem kiválasztására ad lehetőséget, ez valójában egy lenyíló lista. A lenyíló lista
+            értéke az a field lesz, aminek a bevitt értéket adni akarjuk. Az elemeket a bean-ben található colorList
+            fogja kínálni. A kiválasztható elemek listáját a selectItems value paramétereként adjuk meg.
+             -->
+            <h:outputText value="Szín"/>
+            <h:selectOneMenu value="#{horseManagedBean.selectedHorse.colour}" styleClass="select-one-menu">
+                <f:selectItems value="#{horseManagedBean.colorList}"/>
+            </h:selectOneMenu>
+
+            <!-- Az ajtók számát radio gombokkal válasszuk ki, a radio gombok közül csak 1 lehet aktív. Hasonlóképpen
+             működik, mint az előzőekben a selectOneMenu. Itt selectOneRadio lesz a tag neve, a value paraméterének
+             értéke megint az a field, amibe menteni szeretnénk. A selectItems tag ugyanúgy működik mint az előbb,
+             csak egy másik List, a doorOptions lesz a value paraméterének az értéke.
+             -->
+            <h:outputText value="Lábak száma"/>
+            <h:selectOneRadio value="#{horseManagedBean.selectedHorse.legs}" styleClass="select-one-menu">
+                <f:selectItems value="#{horseManagedBean.legList}"/>
+            </h:selectOneRadio>
+
+            <h:outputText value="Engine Code"/>
+            <h:inputText value="#{horseManagedBean.selectedHorse.engineCode}" validatorMessage="Engine code must follow VOL-xxxxxx pattern!">
+                <f:validateRegex pattern="VOL-\d{6}"/>
+            </h:inputText>
+
+            <h:outputText value="Horsepower"/>
+            <h:inputText value="#{horseManagedBean.selectedHorse.horsepower}"
+                         validatorMessage="Input a Horsepower between 110 and 400">
+                <f:validateLongRange minimum="110" maximum="400"/>
+            </h:inputText>
+
+            <h:outputText value="Top Speed"/>
+            <h:inputText value="#{horseManagedBean.selectedHorse.topSpeed}"
+                         validatorMessage="Input a Top Speed between 180 and 280">
+                <f:validateLongRange minimum="180" maximum="280"/>
+            </h:inputText>
+
+            <!-- Demonstráció gyanánt, a motor típusát válasszuk ki megint selectOneMenu-vel, de most ne selectItems
+           tag-et használjunk, hanem selectItem tag-et. Ez annyiban más, hogy csak 1 elem lehet az értéke. Ezért is
+           nem value paramétert kap, hanem itemValue-t. Sima value-t nem tudná átkonvertálni String típusra,
+           itemValuenál ilyen gond nincs. Korábban azért működött a sima Value, mert a List-ekbe alapból csak String
+           típust vittünk be.
+             -->
+
+            <!-- commandButton egy gomb, amivel különféle metódusokat hívhatunk meg akár, ebben az esetben a bean
+            mentés metódusát hívja meg.
+             -->
+            <h:commandButton value="Save" action="#{horseManagedBean.save(horseManagedBean.selectedHorse)}" styleClass="save"/>
+        </h:panelGrid>
+    </h:form>
+    </div>
+    <div align="center">
+    <h:form>
+        <h:dataTable value="#{horseManagedBean.horseList}" var="horse" styleClass="table" headerClass="table-header"
+                     rowClasses="table-odd-row,table-even-row">
+            <h:column>
+                <f:facet name="header">
+                    Brand
+                </f:facet>
+                #{horse.brand}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Model
+                </f:facet>
+                #{horse.model}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Szín
+                </f:facet>
+                #{horse.colour}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Lábak
+                </f:facet>
+                #{horse.legs}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Engine Code
+                </f:facet>
+                <h:outputText value="#{horse.engineCode}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Horsepower
+                </f:facet>
+                <h:outputText value="#{horse.horsepower}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Top Speed
+                </f:facet>
+                <h:outputText value="#{horse.topSpeed}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Módosítás
+                </f:facet>
+                <h:commandButton value="Módosítás" action="#{horseManagedBean.findCar(horse.id)}" styleClass="table-buttons"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Törlés
+                </f:facet>
+                <h:commandButton value="Törlés" action="#{horseManagedBean.delete(horse.id)}" styleClass="table-buttons"/>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+    </div>
+</h:body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>JSF Weboldalunk</title>
+</h:head>
+<h:body>
+    <h1>Ló karbantartó alkamazásunk</h1>
+    <h:form>
+        <p:dataTable value="#{horseManagedBean.horseList}" var="horse" rows="10"
+                     paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15">
+            <p:column headerText="Brand">
+                #{horse.brand}
+            </p:column>
+            <p:column headerText="Model">
+                #{horse.model}
+            </p:column>
+
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>-->

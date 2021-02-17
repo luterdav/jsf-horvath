@@ -1,0 +1,87 @@
+/*Alap html selectorok*/
+html{
+    margin-left:15px; margin-right:15px;
+    padding:0;
+}
+
+h1{
+    background-color: #720508;
+    color: white;
+    text-align: center;
+    border: 2px solid black;
+}
+body{
+    background-color: antiquewhite;
+}
+/*Ez a sor fogja megmondani hogy a 2 div-nek egymás mellett kell lennie.*/
+div{
+    display: inline-block;
+}
+label {
+    font-size: 10px;
+    text-align: right;
+}
+input {
+    background-color: chocolate;
+    color: snow;
+    font-size: 12px;
+}
+/*Classok*/
+/*Validációs hibaüzenetek formázása*/
+.error {
+    color: red;
+    font-weight: bold;
+}
+/*Tábla fejléc formázása*/
+.table-header {
+    border-bottom:1px solid black;
+    border-top: 1px solid black;
+    padding:0;
+    color: snow;
+    width: 10%;
+    background-color: #720508;
+    font-weight: bold;
+}
+/*Magának a táblának a formázása*/
+.table {
+    border-bottom:2px solid black;
+    width:70%;
+}
+/*Páratlan sorok formázása*/
+.table-odd-row {
+    border:1px solid black;
+    text-align:center;
+    background-color: lightseagreen;
+    color: snow;
+}
+/*Páros sorok formázása*/
+.table-even-row {
+    border:1px solid black;
+    text-align:center;
+    background-color: mediumseagreen;
+    color: snow;
+}
+/*Delete és Modify gombok formázása*/
+.table-buttons {
+    border: 1px solid black;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    width: 100px;
+    padding: 5px;
+    margin-bottom: 15px;
+    background: #9baac4;
+    height:30px;
+}
+/*A beviteli form mentés gombjának formázása*/
+.save {
+    font-weight: bold;
+    width: 130px;
+    padding: 5px 10px;
+    background: #9baac4;
+}
+/*A formon belüli lenyíló menük formázása*/
+.select-one-menu{
+    background-color: chocolate;
+    color: snow;
+}
